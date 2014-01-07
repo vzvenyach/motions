@@ -10,6 +10,6 @@
     "consolidate":"*",
     "marked":"*",
     "underscore": "*",
-    "redis":"*"
+    "mongoose":"*"
   }
 }

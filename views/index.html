@@ -16,8 +16,6 @@
   <body>
   <div class="container">
     <h1>Hello, world!</h1>
-    <p>Now I need to learn how to use redis</p>
-    <div id="motionstest"></div>
   </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -27,11 +25,12 @@
     
     var interval = setTimeout(loadMotions, 5000);
     function loadMotions () {
-      $.getJSON('./counts.json', function (d) {
-      $("div#motionstest").replaceWith('<div id="motionstest">' + d.motionstest + "</div>");
+      $.getJSON('./motions.json', function (d) {
+//      $("div#motionstest").replaceWith('<div id="motionstest">' + d.motionstest + "</div>");
     });
       interval = setTimeout(loadMotions, 5000);
     }
+    
     </script>
   </body>
 </html>
