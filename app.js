@@ -5,8 +5,6 @@ require( './motionsdb' );
  * Module dependencies.
  */
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
@@ -40,8 +38,17 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+// Create server and websockets
+var server = require('http').createServer(app);
+var opts = {sockjs_url: "https://d1fxtkz8shb9d2.cloudfront.net/sockjs-0.3.js"};
+var sockjs = require('sockjs').createServer(opts);
+sockjs.installHandlers(server, {prefix:'/sockjs'});
+app.set('sockets', sockjs);
+
+// Routes
+var user = require('./routes/user');
 app.get('/users', user.list);
+require('./routes/index')(app);
 
 /*
 
@@ -71,6 +78,7 @@ app.delete("/motions.json", function (req, res) {
 });
 */
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+// Start server
+server.listen(app.get('port'), function() {
+  console.log('Express/socket server listening on port ' + app.get('port'));
 });
