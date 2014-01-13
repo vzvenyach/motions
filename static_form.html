@@ -29,12 +29,14 @@
 
 <div class="section" id="data-entry">
 <!--h2 class="section-title" id="data-entry-section-title">Data Input</h2-->
-<form id="data-entry-form" method="post" style="display: none">
+<form id="data-entry-form" method="post" action="motions" style="display: none">
   <!-- The element where the generated form goes to. -->
   <div class="onde-panel"></div>
   <!-- The submit button. -->
   <p class="actions">
-      <button type="submit" name="save" value="dump_json">Save</button><button type="submit" name="previous_motion" value="dump_json">Previous Motion</button><button type="submit" name="next_motion" value="dump_json">Next Motion</button><button type="submit" name="child_motion" value="dump_json">Subsidiary Motion</button></p>
+      <button type="submit" name="save" value="dump_json">Save</button>
+
+      <!--<button type="submit" name="previous_motion" value="dump_json">Previous Motion</button><button type="submit" name="next_motion" value="dump_json">Next Motion</button><button type="submit" name="child_motion" value="dump_json">Subsidiary Motion</button></p>-->
 </form>
 </div> <!-- section -->
 
@@ -126,9 +128,17 @@ $(document).ready(function () {
         } else {
             $('#json-output').text(JSON.stringify(outData.data, null, "  "));
             }
-        showDialog($('#data-output'));
+
+        $.post('motions',outData.data).done(function (msg) {
+      console.log("Data saved: " + msg );
+    }).fail(function (msg) {
+      console.log("Error:" + JSON.stringify(msg) );
+    });
+        console.log(JSON.stringify(outData.data));
         return false;
     });
+
+    
     function showDialog(element) {
         if (element.css('display') == 'block') {
           element.
@@ -182,7 +192,6 @@ $(document).ready(function () {
     function clearDialogs() {
         $('.dialog').fadeOut('fast', function () { $('#dialog-block-layer').hide(); });
     };
-    
     
     schemaURL = "./js/motions_schema.json"
     if (schemaURL) {
