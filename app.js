@@ -43,6 +43,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
+app.get('/json', function (req, res) {
+	res.render("static_form.html");
+});
+
 /*
 
 //Ideally, I'd like to present the 

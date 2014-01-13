@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/CreativeWork">
+  <head>
+
+  <!--immense credit to @exavolt for the main functionality here-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    <title>Motions Entry Portal</title>
+    <meta itemprop="name" content="JSON Editor for Council's motions">
+    <meta itemprop="description" content="A web-based JSON editor which utilizes JSON Schema to generate the form for the input and to validate it and to generate the JSON output.">
+    <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
+    <link rel="stylesheet" href="css/onde.css" type="text/css"/>
+    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+
+  </head>
+  <body>
+
+
+<div class="topbar">
+  <div class="fill">
+    <div class="container">
+      <a class="brand" href="">Council Motions -- JSON editor</a>
+    </div>
+  </div>
+</div>
+
+<div id="site">
+
+
+<div class="section" id="data-entry">
+<!--h2 class="section-title" id="data-entry-section-title">Data Input</h2-->
+<form id="data-entry-form" method="post" style="display: none">
+  <!-- The element where the generated form goes to. -->
+  <div class="onde-panel"></div>
+  <!-- The submit button. -->
+  <p class="actions">
+      <button type="submit" name="save" value="dump_json">Save</button><button type="submit" name="previous_motion" value="dump_json">Previous Motion</button><button type="submit" name="next_motion" value="dump_json">Next Motion</button><button type="submit" name="child_motion" value="dump_json">Subsidiary Motion</button></p>
+</form>
+</div> <!-- section -->
+
+
+<div class="dialog" id="data-output" style="display: none">
+<h2 class="dialog-title">Output</h2>
+<p><textarea id="json-output" class="code-editor" readonly="readonly"></textarea></p>
+<p><a href="#" class="modal-close">Close</a></p>
+</div> <!-- dialog -->
+
+
+</div>
+
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="application/javascript" src="js/onde.js"></script>
+<script type="application/javascript">
+
+function getHashParameterByName(name, defval)
+{
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var hash = window.location.hash || '#';
+  var hash_parts = hash.split('?', 2);
+  if (hash_parts.length != 2) {
+    return defval;
+  }
+  var regex = new RegExp("&?" + name + "=([^&#]*)");
+  var results = regex.exec(hash_parts[1]);
+  if(results == null)
+    return defval;
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+$(document).ready(function () {
+    
+    var formElement = $('#data-entry-form');
+    var ondeSession = new onde.Onde(formElement);
+    
+    function _buildFormImpl(schema, data) {
+      if (!schema) {
+        return;
+      }
+      ondeSession.render(schema, data, {
+          schemaURL: "./js/motions_schema.json",
+          collapsedCollapsibles: false,
+          renderFinished: function (element, details) {
+              formElement.hide();
+              clearDialogs();
+              formElement.fadeIn('fast');
+              if (schema.description) {
+                  $('#data-entry-description').text(schema.description);
+              } else {
+                  $('#data-entry-description').hide();
+              }
+          }
+      });
+    };
+    function buildForm() {
+        if (!schemaURL) {
+            return false;
+        }
+        $.get(schemaURL, null, null, 'json')
+          .success(function (schema, textStatus, jqxhr) {
+            if (typeof schema == 'object') {
+              schemaText = jqxhr.responseText;
+              schemaRef = schema;
+            } else {
+              schemaText = schema;
+              //TODO: Guard parse error
+              schemaRef = JSON.parse(schemaText);
+            }
+              _buildFormImpl(schemaRef, null);
+          })
+          .error(function (jqxhr, textStatus, errorThrown) {
+            alert("Schema loading failed: " + errorThrown);
+            $('#data-entry-description').text(defaultPageDesc);
+          });
+        return true;
+    }
+    // Listen to form submit
+    formElement.submit(function (evt) {
+        evt.preventDefault();
+        var outData = ondeSession.getData();
+        if (outData.errorCount) {
+            //TODO: Show message (use content) and cancel submit
+            alert("Error loading data. Number of errors: " + outData.errorCount);
+            console.log(outData);
+        } else {
+            $('#json-output').text(JSON.stringify(outData.data, null, "  "));
+            }
+        showDialog($('#data-output'));
+        return false;
+    });
+    function showDialog(element) {
+        if (element.css('display') == 'block') {
+          element.
+            css('top', $(window).scrollTop() + 50 + "px").
+            css('left', Math.floor(($(window).width() - element.outerWidth()) / 2) +
+                $(window).scrollLeft() + "px"); //TODO: Put in the middle
+          return;
+        }
+        $('.dialog').hide();
+        var dialogZIndex = 1000;
+        if (!$('#dialog-block-layer').length) {
+            blockLayer = $('<div id="dialog-block-layer"></div>');
+            blockLayer.
+                css('position', 'fixed').
+                css('top', '0').
+                css('left', '0').
+                css('width', '100%').
+                css('height', '100%').
+                css('z-index', dialogZIndex - 100).
+                css('outline', 'none').
+                css('margin', '0').
+                css('border', 'none').
+                css('padding', '0').
+                css('background', 'none').
+                css('background-color', 'rgba(255, 255, 255, .8)');
+            $('body').append(blockLayer);
+            blockLayer.show();
+        } else {
+            $('#dialog-block-layer').show();
+        }
+        $('#dialog-block-layer').click(clearDialogs);
+        var dialogWidth = 480;
+        element.
+            css('position', 'absolute').
+            css('top', 0).
+            css('left', 0).
+            css('z-index', dialogZIndex).
+            css('min-width', '240px').
+            css('max-width', '940px').
+            //css('width', dialogWidth + 'px').
+            css('background-color', '#fff').
+            css('padding', '8px').
+            css('border', '1px solid #ccc').
+            css('box-shadow', '0 2px 9px rgba(0,0,0,.3)');
+        element.
+            css('top', $(window).scrollTop() + 50 + "px").
+            css('left', Math.floor(($(window).width() - element.outerWidth()) / 2) +
+                $(window).scrollLeft() + "px").
+            fadeIn('fast');
+    };
+    function clearDialogs() {
+        $('.dialog').fadeOut('fast', function () { $('#dialog-block-layer').hide(); });
+    };
+    
+    
+    schemaURL = "./js/motions_schema.json"
+    if (schemaURL) {
+      // Load the schema if the URL is provided
+      buildForm();
+    }
+});
+</script>
+  </body>
+</html>
