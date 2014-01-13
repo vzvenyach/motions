@@ -1,0 +1,169 @@
+{
+	"type":"object",
+	"properties":{
+		"date": {
+			"type":"string",
+			"required":true
+		},
+		"meeting": {
+			"type":"string",
+			"required":true,
+			"default":"Legislative Meeting"
+		},
+		"motion_number": {
+			"type":"string",
+			"required":true
+		},
+		"measure": {
+			"type":"object",
+			"required":true,
+			"properties":{
+				"measure_type": {
+					"type":"string",
+					"required":true
+				},
+				"measure_number": {
+					"type":"string",
+					"required":false
+				},
+				"short_title": {
+					"type":"string",
+					"required":true
+				}
+			}
+		},
+		"motion": {
+			"type":"object",
+			"required":true,
+			"properties":{
+				"movant": {
+					"type":"string",
+					"required":true,
+					"enum":["Yvette Alexander", "Marion Barry", "Anita Bonds", "Muriel Bowser", "David Catania", "Mary Cheh", "Jack Evans", "Jim Graham", "David Grosso", "Kenyan McDuffie", "Phil Mendelson", "Vincent Orange", "Tommy Wells"]
+				},
+				"motion_description": {
+					"type":"string",
+					"required":true,
+					"default":"Main",
+					"enum":["Main", "Amend", "Postpone to a Time Certain", "Postpone Indefinitely", "Close Debate", "Previous Question", "Table", "Waive 231(c)", "Take from Table", "Reconsider", "Recommit", "Discharge", "Adjourn", "Recess"]
+				},
+				"required_threshold": {
+					"type":"number",
+					"required":true,
+					"default":7
+				}
+			}
+		},
+		"description": {
+			"type":"string",
+			"required":false
+		},
+		"discussion": {
+			"type":"array",
+			"items": {
+				"title":"speaker_number",
+				"type":"string",
+				"enum":["Yvette Alexander", "Marion Barry", "Anita Bonds", "Muriel Bowser", "David Catania", "Mary Cheh", "Jack Evans", "Jim Graham", "David Grosso", "Kenyan McDuffie", "Phil Mendelson", "Vincent Orange", "Tommy Wells"]
+			},
+			"required":true
+		},
+		"vote_data": {
+			"type":"object",
+			"required":true,
+			"properties":{
+				"friendly": {
+					"type":"boolean",
+					"required":true
+				},
+				"roll_call": {
+					"type":"boolean",
+					"required":true
+				},
+				"Yvette Alexander": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Marion Barry": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Anita Bonds": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Muriel Bowser": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"David Catania": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Mary Cheh": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Jack Evans": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Jim Graham": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"David Grosso": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Kenyan McDuffie": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Phil Mendelson": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Vincent Orange": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				},
+				"Tommy Wells": {
+					"type":"string",
+					"required":true,
+					"enum":["Y","N","P","A","R"],
+					"default":"Y"
+				}
+			}
+		},
+		"passed": {
+			"type":"string",
+			"required":true,
+			"default":"true"
+		}
+
+	}
+}
