@@ -18,7 +18,7 @@ var Motion = new Schema ({
 	votes:[{member:String, vote:String}],
 	passed:String,
 	updated_at:Date
-})
+});
 
 mongoose.model( 'Motion', Motion );
 mongoose.connect( 'mongodb://localhost/motionsdb' );

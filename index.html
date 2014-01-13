@@ -21,16 +21,30 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="./js/bootstrap.min.js"></script>
+
+    <!-- websockets -->
+    <script src="https://d1fxtkz8shb9d2.cloudfront.net/sockjs-0.3.js"></script>
     <script type="text/javascript">
-    
-    var interval = setTimeout(loadMotions, 5000);
-    function loadMotions () {
-      $.getJSON('./motions.json', function (d) {
-//      $("div#motionstest").replaceWith('<div id="motionstest">' + d.motionstest + "</div>");
-    });
-      interval = setTimeout(loadMotions, 5000);
-    }
-    
+    // Change to wherever the backend ends up being hosted
+    var socket = new SockJS('http://localhost:5000/sockjs');
+    socket.onopen = function() {
+      console.log('Socket connection successful');
+    };
+    socket.onmessage = function(e) {
+      console.log('data received:', e.data);
+      // Only respond if it's not a global message for demo purposes
+      var data = JSON.parse(e.data);
+      if (data.global) {
+        return;
+      }
+
+      // Send a response
+      var data = { msg: 'pong' };
+      socket.send(JSON.stringify(data));
+    };
+    socket.onclose = function() {
+      console.log('Socket connection closed');
+    };
     </script>
   </body>
 </html>

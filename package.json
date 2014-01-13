@@ -10,6 +10,7 @@
     "consolidate":"*",
     "marked":"*",
     "underscore": "*",
-    "mongoose":"*"
+    "mongoose":"*",
+    "sockjs": "0.3.8"
   }
 }
