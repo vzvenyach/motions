@@ -26,7 +26,7 @@
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="date">Date</label>  
-  <div class="col-md-2">
+  <div class="col-md-4">
   <input id="date" name="date" type="date" placeholder="" class="form-control input-md" required="">
     
   </div>
@@ -145,9 +145,9 @@
 <!-- Button Drop Down -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="discussion">Discussion</label>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="input-group">
-      <input id="discussion" name="discussion" class="form-control" placeholder="Phil Mendelson" type="text">
+      <textarea id="discussion" name="discussion" class="form-control" placeholder="Phil Mendelson" type="text" rows="3"></textarea>
       <div class="input-group-btn">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           Add
@@ -198,15 +198,15 @@
 
 <!-- Multiple Checkboxes (inline) -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="Friendly">Friendly/Roll Call</label>
+  <label class="col-md-4 control-label" for="friendly/rollcall">Friendly/Roll Call</label>
   <div class="col-md-4">
-    <label class="checkbox-inline" for="Friendly-0">
-      <input type="checkbox" name="Friendly" id="Friendly-0" value="true">
-      friendly
+    <label class="checkbox-inline" for="friendly">
+      <input type="checkbox" name="friendly" id="friendly" value="true">
+      Friendly
     </label>
-    <label class="checkbox-inline" for="Friendly-1">
-      <input type="checkbox" name="Friendly" id="Friendly-1" value="true">
-      roll_call
+    <label class="checkbox-inline" for="roll_call">
+      <input type="checkbox" name="roll_call" id="roll_cal" value="true">
+      Roll Call?
     </label>
   </div>
 </div>
@@ -444,10 +444,10 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="button1id">Submit</label>
   <div class="col-md-8">
-    <button id="button1id" name="button1id" class="btn btn-default" onclick="createJSONobj()">Save</button>
-    <button id="button2id" name="button2id" class="btn btn-default">Child Motion</button>
-    <button id="button3id" name="button3id" class="btn btn-default" onclick="createJSONobj()">Previous Motion</button>
-    <button id="button4id" name="button4id" class="btn btn-default">Next Motion</button>
+    <button id="savebtn" name="savebtn" class="btn btn-default btn-save">Save</button>
+    <button id="button2id" name="button2id" class="btn btn-default btn-save">Child Motion</button>
+    <button id="button3id" name="button3id" class="btn btn-default btn-save">Previous Motion</button>
+    <button id="button4id" name="button4id" class="btn btn-default btn-save">Next Motion</button>
   </div>
 </div>
 
@@ -465,7 +465,10 @@
         $('.form-control').each(function(i){
           out[$(this).attr("id")] = $(this).val();
         });
-        console.log(out)
+        $('input:checked').each(function(i){
+          out[$(this).attr("name")] = $(this).val();
+        })
+        console.log(JSON.stringify(out));
       }
 
       function addSpeaker (speaker) {
@@ -474,6 +477,15 @@
           else {lineup = lineup + ", " + speaker};
         $("#discussion").val(lineup);
       }
+
+      $("#savebtn").click(function(evt) {
+        evt.preventDefault();
+        createJSONobj();
+      });
+
+      $(".btn-save").click(function(evt) {
+        evt.preventDefault();
+      });
 
     </script>
   </body>
