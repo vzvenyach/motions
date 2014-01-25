@@ -1,157 +1,274 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/CreativeWork">
-  <head>
 
-  <!--immense credit to @exavolt for the main functionality here-->
+<head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    <!--immense credit to @exavolt for the main functionality here-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Motions Entry Portal</title>
     <meta itemprop="name" content="JSON Editor for Council's motions">
     <meta itemprop="description" content="A web-based JSON editor which utilizes JSON Schema to generate the form for the input and to validate it and to generate the JSON output.">
-    <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
-    <link rel="stylesheet" href="css/onde.css" type="text/css"/>
-    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+    <link rel="stylesheet" href="css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="css/onde.css" type="text/css" />
+    <link rel="stylesheet" href="css/app.css" type="text/css" />
 
-  </head>
-  <body>
+</head>
+
+<body>
 
 
-<div class="topbar">
-  <div class="fill">
-    <div class="container">
-      <a class="brand" href="">Council Motions -- JSON editor</a>
+    <div class="topbar">
+        <div class="fill">
+            <div class="container">
+                <a class="brand" href="">Council Motions -- JSON editor</a>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div id="site">
+    <div id="site">
 
 
-<div class="section" id="data-entry">
-<!--h2 class="section-title" id="data-entry-section-title">Data Input</h2-->
-<form id="data-entry-form" method="post" action="motions" style="display: none">
-  <!-- The element where the generated form goes to. -->
-  <div class="onde-panel"></div>
-  <!-- The submit button. -->
-  <p class="actions">
-      <button type="submit" name="save" value="dump_json">Save</button>
-
-      <!--<button type="submit" name="previous_motion" value="dump_json">Previous Motion</button><button type="submit" name="next_motion" value="dump_json">Next Motion</button><button type="submit" name="child_motion" value="dump_json">Subsidiary Motion</button></p>-->
-</form>
-</div> <!-- section -->
-
-
-<div class="dialog" id="data-output" style="display: none">
-<h2 class="dialog-title">Output</h2>
-<p><textarea id="json-output" class="code-editor" readonly="readonly"></textarea></p>
-<p><a href="#" class="modal-close">Close</a></p>
-</div> <!-- dialog -->
+        <div class="section" id="data-entry">
+            <!--h2 class="section-title" id="data-entry-section-title">Data Input</h2-->
+            <form id="data-entry-form" method="post" action="motions" style="display: none">
+                <!-- The element where the generated form goes to. -->
+                <div class="onde-panel"></div>
+                <!-- The submit buttons. -->
+                <p class="actions">
+                    <button type="submit" name="save" id="save" value="dump_json">Save</button>
+                    <button type="submit" name="child_motion" id="child_motion" value="dump_json">Subsidiary Motion</button>
+                    <button type="submit" name="previous_motion" id="previous_motion" value="dump_json">Previous Motion</button>
+                    <button type="submit" name="next_motion" id="next_motion" value="dump_json">Next Motion</button>
+                </p>
+            </form>
+        </div>
+        <!-- section -->
 
 
-</div>
+        <div class="dialog" id="data-output" style="display: none">
+            <h2 class="dialog-title">Output</h2>
+            <p>
+                <textarea id="json-output" class="code-editor" readonly="readonly"></textarea>
+            </p>
+            <p><a href="#" class="modal-close">Close</a>
+            </p>
+        </div>
+        <!-- dialog -->
 
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="application/javascript" src="js/onde.js"></script>
-<script type="application/javascript">
+    </div>
 
-function getHashParameterByName(name, defval)
-{
-  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-  var hash = window.location.hash || '#';
-  var hash_parts = hash.split('?', 2);
-  if (hash_parts.length != 2) {
-    return defval;
-  }
-  var regex = new RegExp("&?" + name + "=([^&#]*)");
-  var results = regex.exec(hash_parts[1]);
-  if(results == null)
-    return defval;
-  else
-    return decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-$(document).ready(function () {
-    
-    var formElement = $('#data-entry-form');
-    var ondeSession = new onde.Onde(formElement);
-    
-    function _buildFormImpl(schema, data) {
-      if (!schema) {
-        return;
-      }
-      ondeSession.render(schema, data, {
-          schemaURL: "./js/motions_schema.json",
-          collapsedCollapsibles: false,
-          renderFinished: function (element, details) {
-              formElement.hide();
-              clearDialogs();
-              formElement.fadeIn('fast');
-              if (schema.description) {
-                  $('#data-entry-description').text(schema.description);
-              } else {
-                  $('#data-entry-description').hide();
-              }
-          }
-      });
-    };
-    function buildForm() {
-        if (!schemaURL) {
-            return false;
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="application/javascript" src="js/onde.js"></script>
+    <script type="application/javascript">
+    function getHashParameterByName(name, defval) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var hash = window.location.hash || '#';
+        var hash_parts = hash.split('?', 2);
+        if (hash_parts.length != 2) {
+            return defval;
         }
-        $.get(schemaURL, null, null, 'json')
-          .success(function (schema, textStatus, jqxhr) {
-            if (typeof schema == 'object') {
-              schemaText = jqxhr.responseText;
-              schemaRef = schema;
-            } else {
-              schemaText = schema;
-              //TODO: Guard parse error
-              schemaRef = JSON.parse(schemaText);
-            }
-              _buildFormImpl(schemaRef, null);
-          })
-          .error(function (jqxhr, textStatus, errorThrown) {
-            alert("Schema loading failed: " + errorThrown);
-            $('#data-entry-description').text(defaultPageDesc);
-          });
-        return true;
+        var regex = new RegExp("&?" + name + "=([^&#]*)");
+        var results = regex.exec(hash_parts[1]);
+        if (results == null)
+            return defval;
+        else
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-    // Listen to form submit
-    formElement.submit(function (evt) {
-        evt.preventDefault();
-        var outData = ondeSession.getData();
-        if (outData.errorCount) {
-            //TODO: Show message (use content) and cancel submit
-            alert("Error loading data. Number of errors: " + outData.errorCount);
-            console.log(outData);
-        } else {
-            $('#json-output').text(JSON.stringify(outData.data, null, "  "));
+
+    var ondeSession;
+
+    var outData = $(document).ready(function() {
+        var formElement = $('#data-entry-form');
+        ondeSession = new onde.Onde(formElement);
+
+        function _buildFormImpl(schema, data) {
+            if (!schema) {
+                return;
+            }
+            ondeSession.render(schema, data, {
+                schemaURL: "./js/motions_schema.json",
+                collapsedCollapsibles: false,
+                renderFinished: function(element, details) {
+                    formElement.hide();
+                    clearDialogs();
+                    formElement.fadeIn('fast');
+                    if (schema.description) {
+                        $('#data-entry-description').text(schema.description);
+                    } else {
+                        $('#data-entry-description').hide();
+                    }
+                }
+            });
+        };
+
+        function buildForm() {
+            if (!schemaURL) {
+                return false;
+            }
+            $.get(schemaURL, null, null, 'json')
+                .success(function(schema, textStatus, jqxhr) {
+                    if (typeof schema == 'object') {
+                        schemaText = jqxhr.responseText;
+                        schemaRef = schema;
+                    } else {
+                        schemaText = schema;
+                        //TODO: Guard parse error
+                        schemaRef = JSON.parse(schemaText);
+                    }
+                    _buildFormImpl(schemaRef, null);
+
+                    var motionNo = 1;
+                    $("#fieldvalue-m-date").val(new Date().toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit"
+                    }));
+                    $("#fieldvalue-m-motion_number").val(motionNo);
+
+                })
+                .error(function(jqxhr, textStatus, errorThrown) {
+                    alert("Schema loading failed: " + errorThrown);
+                    $('#data-entry-description').text(defaultPageDesc);
+                });
+            return true;
+        }
+        // Listen to SAVE submit
+        $("#save").click(function(evt) {
+            evt.preventDefault();
+            var outData = ondeSession.getData();
+            var responseObj = outData.data;
+            responseObj["updated_at"] = Date.now();
+            if (outData.errorCount) {
+                //TODO: Show message (use content) and cancel submit
+                alert("Error loading data. Number of errors: " + outData.errorCount);
+                console.log(outData);
+            } else {
+                $('#json-output').text(JSON.stringify(responseObj, null, "  "));
             }
 
-        $.post('motions',outData.data).done(function (msg) {
-      console.log("Data saved: " + msg );
-    }).fail(function (msg) {
-      console.log("Error:" + JSON.stringify(msg) );
-    });
-        console.log(JSON.stringify(outData.data));
-        return false;
-    });
+            $.post('motions', responseObj).done(function(msg) {
+                console.log("Data saved: " + JSON.stringify(msg));
+            }).fail(function(msg) {
+                console.log("Error:" + JSON.stringify(msg));
+            });
+            //        console.log(JSON.stringify(outData.data));
+            return false;
+        });
 
-    
-    function showDialog(element) {
-        if (element.css('display') == 'block') {
-          element.
-            css('top', $(window).scrollTop() + 50 + "px").
-            css('left', Math.floor(($(window).width() - element.outerWidth()) / 2) +
-                $(window).scrollLeft() + "px"); //TODO: Put in the middle
-          return;
-        }
-        $('.dialog').hide();
-        var dialogZIndex = 1000;
-        if (!$('#dialog-block-layer').length) {
-            blockLayer = $('<div id="dialog-block-layer"></div>');
-            blockLayer.
+        //Child Submit
+        //Clear out Motion, Description, Discussion, and passed fields
+        $("#child_motion").click(function(evt) {
+            evt.preventDefault();
+            var outData = ondeSession.getData();
+            var responseObj = outData.data;
+            responseObj["updated_at"] = Date.now();
+            responseObj["parent_id"] = responseObj["date"] + "-" + responseObj["motion_number"];
+            if (outData.errorCount) {
+                //TODO: Show message (use content) and cancel submit
+                alert("Error loading data. Number of errors: " + outData.errorCount);
+                console.log(outData);
+            } else {
+                $('#json-output').text(JSON.stringify(responseObj, null, "  "));
+            }
+
+            $.post('motions', responseObj).done(function(msg) {
+                console.log("Data saved: " + JSON.stringify(msg));
+            }).fail(function(msg) {
+                console.log("Error:" + JSON.stringify(msg));
+            });
+
+            //This iterates the Motion Number 
+            var motionNo = parseInt($("#fieldvalue-m-motion_number").val()) + 1;
+            console.log(motionNo);
+            $("#fieldvalue-m-motion_number").val(motionNo);
+            return false;
+        });
+
+        //Next Submit (similar to Child, but clear out fields)
+        $("#next_motion").click(function(evt) {
+            evt.preventDefault();
+            var outData = ondeSession.getData();
+            var responseObj = outData.data;
+            responseObj["updated_at"] = Date.now();
+            if (outData.errorCount) {
+                //TODO: Show message (use content) and cancel submit
+                alert("Error loading data. Number of errors: " + outData.errorCount);
+                console.log(outData);
+            } else {
+                $('#json-output').text(JSON.stringify(responseObj, null, "  "));
+            }
+
+            $.post('motions', responseObj).done(function(msg) {
+                console.log("Data saved: " + JSON.stringify(msg));
+            }).fail(function(msg) {
+                console.log("Error:" + JSON.stringify(msg));
+            });
+
+            //This iterates the Motion Number 
+            var motionNo = parseInt($("#fieldvalue-m-motion_number").val()) + 1;
+            console.log(motionNo);
+            $("#fieldvalue-m-motion_number").val(motionNo);
+
+            //This is where you clear the remaining fields
+            $("#fieldvalue-m-measure_number").val("");
+            $("#fieldvalue-m-measure-short_title").val("");
+            $("#fieldvalue-m-measure-movant").val("Phil Mendelson");
+            $("#fieldvalue-m-measure-motion_description").val("Main");
+            $("#fieldvalue-m-measure-description").val("");
+
+            console.log($("#fieldvalue-m-measure-short_title").val());
+
+// <li id="field-m-discussion" class="field array collapsible"><label for="fieldvalue-m-discussion" class="field-name collapser" data-fieldvalue-container-id="fieldvalue-container-m-discussion">discussion: </label><div id="fieldvalue-container-m-discussion" class="collapsible-panel fieldvalue-container"><ol start="0" id="fieldvalue-m-discussion" data-type="array"></ol><div id="fieldvalue-m-discussion-edit-bar" class="edit-bar array"><small>Add item:  <button class="field-add item-add" data-field-id="fieldvalue-m-discussion" data-object-namespace="m.discussion" data-last-index="0" data-object-type="string" data-schema-name="schema-m">Add</button></small></div></div></li>
+
+            return false;
+        });
+
+        //Previous Motion
+        $("#previous_motion").click(function(evt) {
+            evt.preventDefault();
+            var outData = ondeSession.getData();
+            if (outData.errorCount) {
+                //TODO: Show message (use content) and cancel submit
+                alert("Error loading data. Number of errors: " + outData.errorCount);
+                console.log(outData);
+            } else {
+                $('#json-output').text(JSON.stringify(outData.data, null, "  "));
+            }
+
+            $.post('motions', outData.data).done(function(msg) {
+                console.log("Data saved: " + JSON.stringify(msg));
+            }).fail(function(msg) {
+                console.log("Error:" + JSON.stringify(msg));
+            });
+
+            //This iterates the Motion Number 
+            var motionNo = parseInt($("#fieldvalue-m-motion_number").val()) - 1;
+            console.log(motionNo);
+            $("#fieldvalue-m-motion_number").val(motionNo);
+
+            //Ideally, you now GET the previous motion based on the motion_id, which is 
+            // $.get('motions', {motion_id: function (d) )
+
+            return false;
+        });
+
+        function showDialog(element) {
+            if (element.css('display') == 'block') {
+                element.
+                css('top', $(window).scrollTop() + 50 + "px").
+                css('left', Math.floor(($(window).width() - element.outerWidth()) / 2) +
+                    $(window).scrollLeft() + "px"); //TODO: Put in the middle
+                return;
+            }
+            $('.dialog').hide();
+            var dialogZIndex = 1000;
+            if (!$('#dialog-block-layer').length) {
+                blockLayer = $('<div id="dialog-block-layer"></div>');
+                blockLayer.
                 css('position', 'fixed').
                 css('top', '0').
                 css('left', '0').
@@ -164,14 +281,14 @@ $(document).ready(function () {
                 css('padding', '0').
                 css('background', 'none').
                 css('background-color', 'rgba(255, 255, 255, .8)');
-            $('body').append(blockLayer);
-            blockLayer.show();
-        } else {
-            $('#dialog-block-layer').show();
-        }
-        $('#dialog-block-layer').click(clearDialogs);
-        var dialogWidth = 480;
-        element.
+                $('body').append(blockLayer);
+                blockLayer.show();
+            } else {
+                $('#dialog-block-layer').show();
+            }
+            $('#dialog-block-layer').click(clearDialogs);
+            var dialogWidth = 480;
+            element.
             css('position', 'absolute').
             css('top', 0).
             css('left', 0).
@@ -183,22 +300,28 @@ $(document).ready(function () {
             css('padding', '8px').
             css('border', '1px solid #ccc').
             css('box-shadow', '0 2px 9px rgba(0,0,0,.3)');
-        element.
+            element.
             css('top', $(window).scrollTop() + 50 + "px").
             css('left', Math.floor(($(window).width() - element.outerWidth()) / 2) +
                 $(window).scrollLeft() + "px").
             fadeIn('fast');
-    };
-    function clearDialogs() {
-        $('.dialog').fadeOut('fast', function () { $('#dialog-block-layer').hide(); });
-    };
-    
-    schemaURL = "./js/motions_schema.json"
-    if (schemaURL) {
-      // Load the schema if the URL is provided
-      buildForm();
-    }
-});
-</script>
-  </body>
+        };
+
+        function clearDialogs() {
+            $('.dialog').fadeOut('fast', function() {
+                $('#dialog-block-layer').hide();
+            });
+        };
+
+        schemaURL = "./js/motions_schema.json"
+        if (schemaURL) {
+            // Load the schema if the URL is provided
+            buildForm();
+
+        }
+
+    });
+    </script>
+</body>
+
 </html>

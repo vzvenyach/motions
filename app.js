@@ -1,6 +1,3 @@
-//Connect to the MongoDB
-require( './motionsdb' );
-
 /**
  * Module dependencies.
  */
@@ -12,7 +9,9 @@ var app = express();
 var cons = require('consolidate');
 
 //Need to link up to MongoDB
-//var redis = require('mongoose');
+var mongoose = require('mongoose');
+var Motion = require('./motionsdb');
+mongoose.connect('mongodb://vdavez:test@dharma.mongohq.com:10018/motions');
 
 // all environments
 app.set('port', process.env.PORT || 5000);
@@ -55,7 +54,23 @@ app.get('/json', function (req, res) {
 });
 
 app.post('/motions', function (req, res) {
-	res.send(req.body);
+	motion = new Motion(req.body);
+	motion["_id"] = motion["date"] + "-" + motion["motion_number"];
+	console.log(motion["_id"]);
+//	var upsertData = req.body.toObject();
+//	console.log(Motion.findById(motion["_id"]))
+//	console.log(upsertData);
+	Motion.update({"_id":motion["_id"]},req.body, {upsert:true, strict:false}, function (err, doc) {
+		if (err) {throw err}
+			else {console.log("record added: " + doc)}
+	})
+	
+/*
+	motion.save(function (err) {
+		if (err) {console.log( err )}
+		else {console.log("Record added")};
+	})
+*/
 })
 
 /*

@@ -951,7 +951,7 @@ onde.Onde.prototype.onFieldTypeChanged = function (handle) {
 };
 
 onde.Onde.prototype._generateFieldId = function () {
-    return 'f' + parseInt(Math.random() * 1000000, 10);
+    return 'm';
 };
 onde.Onde.prototype._fieldNameToID = function (fieldName) {
     // Replace dots with hyphens

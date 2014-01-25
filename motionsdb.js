@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Motion = new Schema ({
+var motionSchema = new Schema ({
 	date:String,
 	meeting:String,
 	motion_number:Number,
+	_id: String,
+	parent_id:String,
 	measure_type:String,
 	measure_number:String,
 	short_title:String,
@@ -12,13 +14,12 @@ var Motion = new Schema ({
 	motion_description:String,
 	required_threshold:Number,
 	description:String,
-	discussion:[{member:String}],
+	discussion:Array,
 	friendly: Boolean,
 	roll_call:Boolean,
-	votes:[{member:String, vote:String}],
+	votes:Array,
 	passed:String,
 	updated_at:Date
 });
-
-mongoose.model( 'Motion', Motion );
-mongoose.connect( 'mongodb://localhost/motionsdb' );
+var Motion = mongoose.model( 'Motion', motionSchema )
+module.exports = Motion;

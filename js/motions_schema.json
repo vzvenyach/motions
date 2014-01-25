@@ -3,16 +3,16 @@
   "properties": {
     "date": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "meeting": {
       "type": "string",
-      "required": false,
+      "required": true,
       "default": "Legislative Meeting"
     },
     "motion_number": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "measure": {
       "type": "object",
@@ -20,7 +20,9 @@
       "properties": {
         "measure_type": {
           "type": "string",
-          "required": false
+          "required": true,
+          "default":"B",
+          "enum":["B","PR"]
         },
         "measure_number": {
           "type": "string",
@@ -53,7 +55,8 @@
             "Phil Mendelson",
             "Vincent Orange",
             "Tommy Wells"
-          ]
+          ],
+          "default":"Phil Mendelson"
         },
         "motion_description": {
           "type": "string",
