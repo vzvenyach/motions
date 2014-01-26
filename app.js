@@ -11,7 +11,7 @@ var cons = require('consolidate');
 //Need to link up to MongoDB
 var mongoose = require('mongoose');
 var Motion = require('./motionsdb');
-mongoose.connect('mongodb://vdavez:test@dharma.mongohq.com:10018/motions');
+var db = mongoose.connect('mongodb://vdavez:test@dharma.mongohq.com:10018/motions');
 
 // all environments
 app.set('port', process.env.PORT || 5000);
@@ -53,10 +53,19 @@ app.get('/json', function (req, res) {
 	res.render("static_form.html");
 });
 
+app.get('/motions', function (req, res){
+	motion = new Motion();
+	id = req.query["d"] + "-" + req.query["m"];
+	console.log("GET: " + id);
+	Motion.findById(id, {"_id":0}, function (err, doc) {
+		res.send(doc);
+	});
+})
+
 app.post('/motions', function (req, res) {
 	motion = new Motion(req.body);
 	motion["_id"] = motion["date"] + "-" + motion["motion_number"];
-	console.log(motion["_id"]);
+	console.log("POST: " + motion["_id"]);
 //	var upsertData = req.body.toObject();
 //	console.log(Motion.findById(motion["_id"]))
 //	console.log(upsertData);

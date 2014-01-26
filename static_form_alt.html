@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Council Hearing Notice Form Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
-<!--  <link href="./css/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./css/jquery-ui.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -14,166 +15,180 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-  <div class="container">
-  <form class="form-horizontal">
-<fieldset>
+</head>
 
-<!-- Form Name -->
-<legend>Motions</legend>
+<body>
+    <div class="container">
+        <form class="form-horizontal">
+            <fieldset>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="date">Date</label>  
-  <div class="col-md-4">
-  <input id="date" name="date" type="date" placeholder="" class="form-control input-md" required="">
-    
-  </div>
-</div>
+                <!-- Form Name -->
+                <legend>Motions</legend>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="meeting">Meeting</label>  
-  <div class="col-md-4">
-  <input id="meeting" name="meeting" type="text" value="Legislative Meeting" class="form-control input-md" required="">
-    
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="date">Date</label>
+                    <div class="col-md-4">
+                        <input id="date" name="date" type="date" placeholder="" class="form-control input-md" required="">
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="motion_number">Motion Number</label>  
-  <div class="col-md-4">
-  <input id="motion_number" name="motion_number" type="text" placeholder="1" class="form-control input-md">
-    
-  </div>
-</div>
+                    </div>
+                </div>
 
-<!-- Select Basic -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="measure_type">Measure Type</label>
-  <div class="col-md-4">
-    <select id="measure_type" name="measure_type" class="form-control">
-      <option value="B">B</option>
-      <option value="PR">PR</option>
-    </select>
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="meeting">Meeting</label>
+                    <div class="col-md-4">
+                        <input id="meeting" name="meeting" type="text" value="Legislative Meeting" class="form-control input-md" required="">
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="measure_number">Measure Number</label>  
-  <div class="col-md-4">
-  <input id="measure_number" name="measure_number" type="text" placeholder="" class="form-control input-md">
-    
-  </div>
-</div>
+                    </div>
+                </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="short_title">Short Title</label>  
-  <div class="col-md-4">
-  <input id="short_title" name="short_title" type="text" placeholder="" class="form-control input-md">
-    
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="motion_number">Motion Number</label>
+                    <div class="col-md-4">
+                        <input id="motion_number" name="motion_number" type="text" placeholder="1" class="form-control input-md">
 
-<!-- Select Basic -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="movant">Movant</label>
-  <div class="col-md-5">
-    <select id="movant" name="movant" class="form-control">
-      <option value="yvette_alexander">Yvette Alexander</option>
-      <option value="marion_barry">Marion Barry</option>
-      <option value="anita_bonds">Anita Bonds</option>
-      <option value="muriel_bowser">Muriel Bowser</option>
-      <option value="david_catania">David Catania</option>
-      <option value="mary_cheh">Mary Cheh</option>
-      <option value="jack_evans">Jack Evans</option>
-      <option value="jim_graham">Jim Graham</option>
-      <option value="david_grosso">David Grosso</option>
-      <option value="kenyan_mcduffie">Kenyan McDuffie</option>
-      <option value="phil_mendelson">Phil Mendelson</option>
-      <option value="vincent_orange">Vincent Orange</option>
-      <option value="tommy_wells">Tommy Wells</option>
-    </select>
-  </div>
-</div>
+                    </div>
+                </div>
 
-<!-- Select Basic -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="motion_description">Motion Description</label>
-  <div class="col-md-5">
-    <select id="motion_description" name="motion_description" class="form-control">
-      <option value="main">Main</option>
-      <option value="amend">Amend</option>
-      <option value="postpone_to_a_time_certain">Postpone to a Time Certain</option>
-      <option value="postpone_indefinitely">Postpone Indefinitely</option>
-      <option value="close_debate">Close Debate</option>
-      <option value="previous_question">Previous Question</option>
-      <option value="table">Table</option>
-      <option value="waive_231(c)">Waive 231(c)</option>
-      <option value="take_from_table">Take from Table</option>
-      <option value="reconsider">Reconsider</option>
-      <option value="recommit">Recommit</option>
-      <option value="discharge">Discharge</option>
-      <option value="adjourn">Adjourn</option>
-      <option value="recess">Recess</option>
-    </select>
-  </div>
-</div>
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="measure_type">Measure Type</label>
+                    <div class="col-md-4">
+                        <select id="measure_type" name="measure_type" class="form-control">
+                            <option value="B">B</option>
+                            <option value="PR">PR</option>
+                        </select>
+                    </div>
+                </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="required_threshold">Required Threshold</label>  
-  <div class="col-md-4">
-  <input id="required_threshold" name="required_threshold" type="text" placeholder="7" class="form-control input-md">
-    
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="measure_number">Measure Number</label>
+                    <div class="col-md-4">
+                        <input id="measure_number" name="measure_number" type="text" placeholder="" class="form-control input-md">
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="description">Description of Motion</label>  
-  <div class="col-md-4">
-  <input id="description" name="description" type="text" placeholder="" class="form-control input-md">
-    
-  </div>
-</div>
+                    </div>
+                </div>
 
-<!-- Button Drop Down -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="discussion">Discussion</label>
-  <div class="col-md-6">
-    <div class="input-group">
-      <textarea id="discussion" name="discussion" class="form-control" placeholder="Phil Mendelson" type="text" rows="3"></textarea>
-      <div class="input-group-btn">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          Add
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu pull-right">
-          <li><a onclick="addSpeaker('Yvette Alexander')">Yvette Alexander</a></li>
-          <li><a onclick="addSpeaker('Marion Barry')">Marion Barry</a></li>
-          <li><a onclick="addSpeaker('Anita Bonds')">Anita Bonds</a></li>
-          <li><a onclick="addSpeaker('Muriel Bowser')">Muriel Bowser</a></li>
-          <li><a onclick="addSpeaker('David Catania')">David Catania</a></li>
-          <li><a onclick="addSpeaker('Mary Cheh')">Mary Cheh</a></li>
-          <li><a onclick="addSpeaker('Jack Evans')">Jack Evans</a></li>
-          <li><a onclick="addSpeaker('Jim Graham')">Jim Graham</a></li>
-          <li><a onclick="addSpeaker('David Grosso')">David Grosso</a></li>
-          <li><a onclick="addSpeaker('Kenyan McDuffie')">Kenyan McDuffie</a></li>
-          <li><a onclick="addSpeaker('Phil Mendelson')">Phil Mendelson</a></li>
-          <li><a onclick="addSpeaker('Vincent Orange')">Vincent Orange</a></li>
-          <li><a onclick="addSpeaker('Tommy Wells')">Tommy Wells</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="short_title">Short Title</label>
+                    <div class="col-md-4">
+                        <input id="short_title" name="short_title" type="text" placeholder="" class="form-control input-md">
 
-<!--
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="movant">Movant</label>
+                    <div class="col-md-5">
+                        <select id="movant" name="movant" class="form-control">
+                            <option value="yvette_alexander">Yvette Alexander</option>
+                            <option value="marion_barry">Marion Barry</option>
+                            <option value="anita_bonds">Anita Bonds</option>
+                            <option value="muriel_bowser">Muriel Bowser</option>
+                            <option value="david_catania">David Catania</option>
+                            <option value="mary_cheh">Mary Cheh</option>
+                            <option value="jack_evans">Jack Evans</option>
+                            <option value="jim_graham">Jim Graham</option>
+                            <option value="david_grosso">David Grosso</option>
+                            <option value="kenyan_mcduffie">Kenyan McDuffie</option>
+                            <option value="phil_mendelson">Phil Mendelson</option>
+                            <option value="vincent_orange">Vincent Orange</option>
+                            <option value="tommy_wells">Tommy Wells</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="motion_description">Motion Description</label>
+                    <div class="col-md-5">
+                        <select id="motion_description" name="motion_description" class="form-control">
+                            <option value="main">Main</option>
+                            <option value="amend">Amend</option>
+                            <option value="postpone_to_a_time_certain">Postpone to a Time Certain</option>
+                            <option value="postpone_indefinitely">Postpone Indefinitely</option>
+                            <option value="close_debate">Close Debate</option>
+                            <option value="previous_question">Previous Question</option>
+                            <option value="table">Table</option>
+                            <option value="waive_231(c)">Waive 231(c)</option>
+                            <option value="take_from_table">Take from Table</option>
+                            <option value="reconsider">Reconsider</option>
+                            <option value="recommit">Recommit</option>
+                            <option value="discharge">Discharge</option>
+                            <option value="adjourn">Adjourn</option>
+                            <option value="recess">Recess</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="required_threshold">Required Threshold</label>
+                    <div class="col-md-4">
+                        <input id="required_threshold" name="required_threshold" type="text" value="7" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="description">Description of Motion</label>
+                    <div class="col-md-4">
+                        <input id="description" name="description" type="text" placeholder="" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Button Drop Down -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="discussion">Discussion</label>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <textarea id="discussion" name="discussion" class="form-control" placeholder="Phil Mendelson" type="text" rows="3"></textarea>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Add
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a onclick="addSpeaker('Yvette Alexander')">Yvette Alexander</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Marion Barry')">Marion Barry</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Anita Bonds')">Anita Bonds</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Muriel Bowser')">Muriel Bowser</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('David Catania')">David Catania</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Mary Cheh')">Mary Cheh</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Jack Evans')">Jack Evans</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Jim Graham')">Jim Graham</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('David Grosso')">David Grosso</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Kenyan McDuffie')">Kenyan McDuffie</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Phil Mendelson')">Phil Mendelson</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Vincent Orange')">Vincent Orange</a>
+                                    </li>
+                                    <li><a onclick="addSpeaker('Tommy Wells')">Tommy Wells</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
 <div class="form-group">
   <label class="col-md-4 control-label" for="discussion">Discussion</label>
   <div class="col-md-4">
@@ -196,297 +211,406 @@
 </div>
 -->
 
-<!-- Multiple Checkboxes (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="friendly/rollcall">Friendly/Roll Call</label>
-  <div class="col-md-4">
-    <label class="checkbox-inline" for="friendly">
-      <input type="checkbox" name="friendly" id="friendly" value="true">
-      Friendly
-    </label>
-    <label class="checkbox-inline" for="roll_call">
-      <input type="checkbox" name="roll_call" id="roll_cal" value="true">
-      Roll Call?
-    </label>
-  </div>
-</div>
+                <!-- Multiple Checkboxes (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="friendly/rollcall">Friendly/Roll Call</label>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline" for="friendly">
+                            <input type="checkbox" name="friendly" id="friendly" value="true">Friendly
+                        </label>
+                        <label class="checkbox-inline" for="roll_call">
+                            <input type="checkbox" name="roll_call" id="roll_cal" value="true">Roll Call?
+                        </label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="yvette_alexander">Yvette Alexander</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="yvette_alexander-0">
-      <input type="radio" name="yvette_alexander" id="yvette_alexander-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="yvette_alexander-1">
-      <input type="radio" name="yvette_alexander" id="yvette_alexander-1" value="n">N</label> 
-    <label class="radio-inline" for="yvette_alexander-2">
-      <input type="radio" name="yvette_alexander" id="yvette_alexander-2" value="p">P</label> 
-    <label class="radio-inline" for="yvette_alexander-3">
-      <input type="radio" name="yvette_alexander" id="yvette_alexander-3" value="a">A</label> 
-    <label class="radio-inline" for="yvette_alexander-4">
-      <input type="radio" name="yvette_alexander" id="yvette_alexander-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="yvette_alexander">Yvette Alexander</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="yvette_alexander-0">
+                            <input type="radio" name="yvette_alexander" id="yvette_alexander-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="yvette_alexander-1">
+                            <input type="radio" name="yvette_alexander" id="yvette_alexander-1" value="n">N</label>
+                        <label class="radio-inline" for="yvette_alexander-2">
+                            <input type="radio" name="yvette_alexander" id="yvette_alexander-2" value="p">P</label>
+                        <label class="radio-inline" for="yvette_alexander-3">
+                            <input type="radio" name="yvette_alexander" id="yvette_alexander-3" value="a">A</label>
+                        <label class="radio-inline" for="yvette_alexander-4">
+                            <input type="radio" name="yvette_alexander" id="yvette_alexander-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="marion_barry">Marion Barry</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="marion_barry-0">
-      <input type="radio" name="marion_barry" id="marion_barry-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="marion_barry-1">
-      <input type="radio" name="marion_barry" id="marion_barry-1" value="n">N</label> 
-    <label class="radio-inline" for="marion_barry-2">
-      <input type="radio" name="marion_barry" id="marion_barry-2" value="p">P</label> 
-    <label class="radio-inline" for="marion_barry-3">
-      <input type="radio" name="marion_barry" id="marion_barry-3" value="a">A</label> 
-    <label class="radio-inline" for="marion_barry-4">
-      <input type="radio" name="marion_barry" id="marion_barry-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="marion_barry">Marion Barry</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="marion_barry-0">
+                            <input type="radio" name="marion_barry" id="marion_barry-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="marion_barry-1">
+                            <input type="radio" name="marion_barry" id="marion_barry-1" value="n">N</label>
+                        <label class="radio-inline" for="marion_barry-2">
+                            <input type="radio" name="marion_barry" id="marion_barry-2" value="p">P</label>
+                        <label class="radio-inline" for="marion_barry-3">
+                            <input type="radio" name="marion_barry" id="marion_barry-3" value="a">A</label>
+                        <label class="radio-inline" for="marion_barry-4">
+                            <input type="radio" name="marion_barry" id="marion_barry-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="anita_bonds">Anita Bonds</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="anita_bonds-0">
-      <input type="radio" name="anita_bonds" id="anita_bonds-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="anita_bonds-1">
-      <input type="radio" name="anita_bonds" id="anita_bonds-1" value="n">N</label> 
-    <label class="radio-inline" for="anita_bonds-2">
-      <input type="radio" name="anita_bonds" id="anita_bonds-2" value="p">P</label> 
-    <label class="radio-inline" for="anita_bonds-3">
-      <input type="radio" name="anita_bonds" id="anita_bonds-3" value="a">A</label> 
-    <label class="radio-inline" for="anita_bonds-4">
-      <input type="radio" name="anita_bonds" id="anita_bonds-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="anita_bonds">Anita Bonds</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="anita_bonds-0">
+                            <input type="radio" name="anita_bonds" id="anita_bonds-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="anita_bonds-1">
+                            <input type="radio" name="anita_bonds" id="anita_bonds-1" value="n">N</label>
+                        <label class="radio-inline" for="anita_bonds-2">
+                            <input type="radio" name="anita_bonds" id="anita_bonds-2" value="p">P</label>
+                        <label class="radio-inline" for="anita_bonds-3">
+                            <input type="radio" name="anita_bonds" id="anita_bonds-3" value="a">A</label>
+                        <label class="radio-inline" for="anita_bonds-4">
+                            <input type="radio" name="anita_bonds" id="anita_bonds-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="muriel_bowser">Muriel Bowser</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="muriel_bowser-0">
-      <input type="radio" name="muriel_bowser" id="muriel_bowser-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="muriel_bowser-1">
-      <input type="radio" name="muriel_bowser" id="muriel_bowser-1" value="n">N</label> 
-    <label class="radio-inline" for="muriel_bowser-2">
-      <input type="radio" name="muriel_bowser" id="muriel_bowser-2" value="p">P</label> 
-    <label class="radio-inline" for="muriel_bowser-3">
-      <input type="radio" name="muriel_bowser" id="muriel_bowser-3" value="a">A</label> 
-    <label class="radio-inline" for="muriel_bowser-4">
-      <input type="radio" name="muriel_bowser" id="muriel_bowser-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="muriel_bowser">Muriel Bowser</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="muriel_bowser-0">
+                            <input type="radio" name="muriel_bowser" id="muriel_bowser-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="muriel_bowser-1">
+                            <input type="radio" name="muriel_bowser" id="muriel_bowser-1" value="n">N</label>
+                        <label class="radio-inline" for="muriel_bowser-2">
+                            <input type="radio" name="muriel_bowser" id="muriel_bowser-2" value="p">P</label>
+                        <label class="radio-inline" for="muriel_bowser-3">
+                            <input type="radio" name="muriel_bowser" id="muriel_bowser-3" value="a">A</label>
+                        <label class="radio-inline" for="muriel_bowser-4">
+                            <input type="radio" name="muriel_bowser" id="muriel_bowser-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="david_catania">David Catania</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="david_catania-0">
-      <input type="radio" name="david_catania" id="david_catania-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="david_catania-1">
-      <input type="radio" name="david_catania" id="david_catania-1" value="n">N</label> 
-    <label class="radio-inline" for="david_catania-2">
-      <input type="radio" name="david_catania" id="david_catania-2" value="p">P</label> 
-    <label class="radio-inline" for="david_catania-3">
-      <input type="radio" name="david_catania" id="david_catania-3" value="a">A</label> 
-    <label class="radio-inline" for="david_catania-4">
-      <input type="radio" name="david_catania" id="david_catania-4" value="r">R</label>
-  </div>
-</div>
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="mary_cheh">Mary Cheh</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="mary_cheh-0">
-      <input type="radio" name="mary_cheh" id="mary_cheh-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="mary_cheh-1">
-      <input type="radio" name="mary_cheh" id="mary_cheh-1" value="n">N</label> 
-    <label class="radio-inline" for="mary_cheh-2">
-      <input type="radio" name="mary_cheh" id="mary_cheh-2" value="p">P</label> 
-    <label class="radio-inline" for="mary_cheh-3">
-      <input type="radio" name="mary_cheh" id="mary_cheh-3" value="a">A</label> 
-    <label class="radio-inline" for="mary_cheh-4">
-      <input type="radio" name="mary_cheh" id="mary_cheh-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="david_catania">David Catania</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="david_catania-0">
+                            <input type="radio" name="david_catania" id="david_catania-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="david_catania-1">
+                            <input type="radio" name="david_catania" id="david_catania-1" value="n">N</label>
+                        <label class="radio-inline" for="david_catania-2">
+                            <input type="radio" name="david_catania" id="david_catania-2" value="p">P</label>
+                        <label class="radio-inline" for="david_catania-3">
+                            <input type="radio" name="david_catania" id="david_catania-3" value="a">A</label>
+                        <label class="radio-inline" for="david_catania-4">
+                            <input type="radio" name="david_catania" id="david_catania-4" value="r">R</label>
+                    </div>
+                </div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="mary_cheh">Mary Cheh</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="mary_cheh-0">
+                            <input type="radio" name="mary_cheh" id="mary_cheh-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="mary_cheh-1">
+                            <input type="radio" name="mary_cheh" id="mary_cheh-1" value="n">N</label>
+                        <label class="radio-inline" for="mary_cheh-2">
+                            <input type="radio" name="mary_cheh" id="mary_cheh-2" value="p">P</label>
+                        <label class="radio-inline" for="mary_cheh-3">
+                            <input type="radio" name="mary_cheh" id="mary_cheh-3" value="a">A</label>
+                        <label class="radio-inline" for="mary_cheh-4">
+                            <input type="radio" name="mary_cheh" id="mary_cheh-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="jack_evans">Jack Evans</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="jack_evans-0">
-      <input type="radio" name="jack_evans" id="jack_evans-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="jack_evans-1">
-      <input type="radio" name="jack_evans" id="jack_evans-1" value="n">N</label> 
-    <label class="radio-inline" for="jack_evans-2">
-      <input type="radio" name="jack_evans" id="jack_evans-2" value="p">P</label> 
-    <label class="radio-inline" for="jack_evans-3">
-      <input type="radio" name="jack_evans" id="jack_evans-3" value="a">A</label> 
-    <label class="radio-inline" for="jack_evans-4">
-      <input type="radio" name="jack_evans" id="jack_evans-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="jack_evans">Jack Evans</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="jack_evans-0">
+                            <input type="radio" name="jack_evans" id="jack_evans-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="jack_evans-1">
+                            <input type="radio" name="jack_evans" id="jack_evans-1" value="n">N</label>
+                        <label class="radio-inline" for="jack_evans-2">
+                            <input type="radio" name="jack_evans" id="jack_evans-2" value="p">P</label>
+                        <label class="radio-inline" for="jack_evans-3">
+                            <input type="radio" name="jack_evans" id="jack_evans-3" value="a">A</label>
+                        <label class="radio-inline" for="jack_evans-4">
+                            <input type="radio" name="jack_evans" id="jack_evans-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="jim_graham">Jim Graham</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="jim_graham-0">
-      <input type="radio" name="jim_graham" id="jim_graham-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="jim_graham-1">
-      <input type="radio" name="jim_graham" id="jim_graham-1" value="n">N</label> 
-    <label class="radio-inline" for="jim_graham-2">
-      <input type="radio" name="jim_graham" id="jim_graham-2" value="p">P</label> 
-    <label class="radio-inline" for="jim_graham-3">
-      <input type="radio" name="jim_graham" id="jim_graham-3" value="a">A</label> 
-    <label class="radio-inline" for="jim_graham-4">
-      <input type="radio" name="jim_graham" id="jim_graham-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="jim_graham">Jim Graham</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="jim_graham-0">
+                            <input type="radio" name="jim_graham" id="jim_graham-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="jim_graham-1">
+                            <input type="radio" name="jim_graham" id="jim_graham-1" value="n">N</label>
+                        <label class="radio-inline" for="jim_graham-2">
+                            <input type="radio" name="jim_graham" id="jim_graham-2" value="p">P</label>
+                        <label class="radio-inline" for="jim_graham-3">
+                            <input type="radio" name="jim_graham" id="jim_graham-3" value="a">A</label>
+                        <label class="radio-inline" for="jim_graham-4">
+                            <input type="radio" name="jim_graham" id="jim_graham-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="david_grosso">David Grosso</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="david_grosso-0">
-      <input type="radio" name="david_grosso" id="david_grosso-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="david_grosso-1">
-      <input type="radio" name="david_grosso" id="david_grosso-1" value="n">N</label> 
-    <label class="radio-inline" for="david_grosso-2">
-      <input type="radio" name="david_grosso" id="david_grosso-2" value="p">P</label> 
-    <label class="radio-inline" for="david_grosso-3">
-      <input type="radio" name="david_grosso" id="david_grosso-3" value="a">A</label> 
-    <label class="radio-inline" for="david_grosso-4">
-      <input type="radio" name="david_grosso" id="david_grosso-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="david_grosso">David Grosso</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="david_grosso-0">
+                            <input type="radio" name="david_grosso" id="david_grosso-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="david_grosso-1">
+                            <input type="radio" name="david_grosso" id="david_grosso-1" value="n">N</label>
+                        <label class="radio-inline" for="david_grosso-2">
+                            <input type="radio" name="david_grosso" id="david_grosso-2" value="p">P</label>
+                        <label class="radio-inline" for="david_grosso-3">
+                            <input type="radio" name="david_grosso" id="david_grosso-3" value="a">A</label>
+                        <label class="radio-inline" for="david_grosso-4">
+                            <input type="radio" name="david_grosso" id="david_grosso-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="kenyan_mcduffie">Kenyan McDuffie</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="kenyan_mcduffie-0">
-      <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="kenyan_mcduffie-1">
-      <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-1" value="n">N</label> 
-    <label class="radio-inline" for="kenyan_mcduffie-2">
-      <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-2" value="p">P</label> 
-    <label class="radio-inline" for="kenyan_mcduffie-3">
-      <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-3" value="a">A</label> 
-    <label class="radio-inline" for="kenyan_mcduffie-4">
-      <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="kenyan_mcduffie">Kenyan McDuffie</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="kenyan_mcduffie-0">
+                            <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="kenyan_mcduffie-1">
+                            <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-1" value="n">N</label>
+                        <label class="radio-inline" for="kenyan_mcduffie-2">
+                            <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-2" value="p">P</label>
+                        <label class="radio-inline" for="kenyan_mcduffie-3">
+                            <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-3" value="a">A</label>
+                        <label class="radio-inline" for="kenyan_mcduffie-4">
+                            <input type="radio" name="kenyan_mcduffie" id="kenyan_mcduffie-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="phil_mendelson">Phil Mendelson</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="phil_mendelson-0">
-      <input type="radio" name="phil_mendelson" id="phil_mendelson-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="phil_mendelson-1">
-      <input type="radio" name="phil_mendelson" id="phil_mendelson-1" value="n">N</label> 
-    <label class="radio-inline" for="phil_mendelson-2">
-      <input type="radio" name="phil_mendelson" id="phil_mendelson-2" value="p">P</label> 
-    <label class="radio-inline" for="phil_mendelson-3">
-      <input type="radio" name="phil_mendelson" id="phil_mendelson-3" value="a">A</label> 
-    <label class="radio-inline" for="phil_mendelson-4">
-      <input type="radio" name="phil_mendelson" id="phil_mendelson-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="phil_mendelson">Phil Mendelson</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="phil_mendelson-0">
+                            <input type="radio" name="phil_mendelson" id="phil_mendelson-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="phil_mendelson-1">
+                            <input type="radio" name="phil_mendelson" id="phil_mendelson-1" value="n">N</label>
+                        <label class="radio-inline" for="phil_mendelson-2">
+                            <input type="radio" name="phil_mendelson" id="phil_mendelson-2" value="p">P</label>
+                        <label class="radio-inline" for="phil_mendelson-3">
+                            <input type="radio" name="phil_mendelson" id="phil_mendelson-3" value="a">A</label>
+                        <label class="radio-inline" for="phil_mendelson-4">
+                            <input type="radio" name="phil_mendelson" id="phil_mendelson-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="vincent_orange">Vincent Orange</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="vincent_orange-0">
-      <input type="radio" name="vincent_orange" id="vincent_orange-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="vincent_orange-1">
-      <input type="radio" name="vincent_orange" id="vincent_orange-1" value="n">N</label> 
-    <label class="radio-inline" for="vincent_orange-2">
-      <input type="radio" name="vincent_orange" id="vincent_orange-2" value="p">P</label> 
-    <label class="radio-inline" for="vincent_orange-3">
-      <input type="radio" name="vincent_orange" id="vincent_orange-3" value="a">A</label> 
-    <label class="radio-inline" for="vincent_orange-4">
-      <input type="radio" name="vincent_orange" id="vincent_orange-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="vincent_orange">Vincent Orange</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="vincent_orange-0">
+                            <input type="radio" name="vincent_orange" id="vincent_orange-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="vincent_orange-1">
+                            <input type="radio" name="vincent_orange" id="vincent_orange-1" value="n">N</label>
+                        <label class="radio-inline" for="vincent_orange-2">
+                            <input type="radio" name="vincent_orange" id="vincent_orange-2" value="p">P</label>
+                        <label class="radio-inline" for="vincent_orange-3">
+                            <input type="radio" name="vincent_orange" id="vincent_orange-3" value="a">A</label>
+                        <label class="radio-inline" for="vincent_orange-4">
+                            <input type="radio" name="vincent_orange" id="vincent_orange-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="tommy_wells">Tommy Wells</label>
-  <div class="col-md-4"> 
-    <label class="radio-inline" for="tommy_wells-0">
-      <input type="radio" name="tommy_wells" id="tommy_wells-0" value="y" checked="checked">Y</label> 
-    <label class="radio-inline" for="tommy_wells-1">
-      <input type="radio" name="tommy_wells" id="tommy_wells-1" value="n">N</label> 
-    <label class="radio-inline" for="tommy_wells-2">
-      <input type="radio" name="tommy_wells" id="tommy_wells-2" value="p">P</label> 
-    <label class="radio-inline" for="tommy_wells-3">
-      <input type="radio" name="tommy_wells" id="tommy_wells-3" value="a">A</label> 
-    <label class="radio-inline" for="tommy_wells-4">
-      <input type="radio" name="tommy_wells" id="tommy_wells-4" value="r">R</label>
-  </div>
-</div>
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="tommy_wells">Tommy Wells</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="tommy_wells-0">
+                            <input type="radio" name="tommy_wells" id="tommy_wells-0" value="y" checked="checked">Y</label>
+                        <label class="radio-inline" for="tommy_wells-1">
+                            <input type="radio" name="tommy_wells" id="tommy_wells-1" value="n">N</label>
+                        <label class="radio-inline" for="tommy_wells-2">
+                            <input type="radio" name="tommy_wells" id="tommy_wells-2" value="p">P</label>
+                        <label class="radio-inline" for="tommy_wells-3">
+                            <input type="radio" name="tommy_wells" id="tommy_wells-3" value="a">A</label>
+                        <label class="radio-inline" for="tommy_wells-4">
+                            <input type="radio" name="tommy_wells" id="tommy_wells-4" value="r">R</label>
+                    </div>
+                </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="passed">Passed?</label>  
-  <div class="col-md-4">
-  <input id="passed" name="passed" type="text" placeholder="true" class="form-control input-md">
-    
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="passed">Passed?</label>
+                    <div class="col-md-4">
+                        <input id="passed" name="passed" type="text" class="form-control input-md">
 
-<!-- Button (Double) -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="button1id">Submit</label>
-  <div class="col-md-8">
-    <button id="savebtn" name="savebtn" class="btn btn-default btn-save">Save</button>
-    <button id="button2id" name="button2id" class="btn btn-default btn-save">Child Motion</button>
-    <button id="button3id" name="button3id" class="btn btn-default btn-save">Previous Motion</button>
-    <button id="button4id" name="button4id" class="btn btn-default btn-save">Next Motion</button>
-  </div>
-</div>
+                    </div>
+                </div>
 
-</fieldset>
-</form>
-</div>
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="button1id">Submit</label>
+                    <div class="col-md-8">
+                        <button id="savebtn" name="savebtn" class="btn btn-default btn-save">Save</button>
+                        <button id="childbtn" name="childbtn" class="btn btn-default btn-save">Child Motion</button>
+                        <button id="parentbtn" name="parentbtn" class="btn btn-default btn-save">Parent Motion</button>
+                        <button id="previousbtn" name="previousbtn" class="btn btn-default btn-save">Previous Motion</button>
+                        <button id="nextbtn" name="nextbtn" class="btn btn-default btn-save">Next Motion</button>
+                    </div>
+                </div>
+
+                <input type="hidden" id="parent" name="parent" value="">
+
+            </fieldset>
+        </form>
+    </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="./js/jquery-1.9.1.js"></script>
+    <script src="./js/jquery-ui.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/moment.min.js"></script>
     <script type="text/javascript">
+    var total = 1;
 
-    function createJSONobj (){
+    jQuery(document).ready(function() {
+        $("input[type='date']").datepicker();
+
+        //This keeps you on track if you go back and forth through childs, parents, and previous motions
+
+        console.log("ready!");
+        $("#date").val(moment().format("YYYY-MM-DD"));
+        $("#motion_number").val(total);
+    });
+
+    function createJSONobj() {
         var out = {};
-        $('.form-control').each(function(i){
-          out[$(this).attr("id")] = $(this).val();
+        $('.form-control').each(function(i) {
+            out[$(this).attr("id")] = $(this).val();
         });
-        $('input:checked').each(function(i){
-          out[$(this).attr("name")] = $(this).val();
-        })
-        console.log(JSON.stringify(out));
-      }
+        if ($("#passed").val() != "") {
+            $('input:checked').each(function(i) {
+                out[$(this).attr("name")] = $(this).val();
+            })
+        }
+        if ($("#parent").val() != "") {
+            out["parent"] = $("#parent").val();
+        }
+        return out;
+    }
 
-      function addSpeaker (speaker) {
+    function addSpeaker(speaker) {
         var lineup = $("#discussion").val();
-        if (lineup == "") {lineup = speaker}
-          else {lineup = lineup + ", " + speaker};
+        if (lineup == "") {
+            lineup = speaker
+        } else {
+            lineup = lineup + ", " + speaker
+        };
         $("#discussion").val(lineup);
-      }
 
-      $("#savebtn").click(function(evt) {
+        // Here, we're going to do an automatic save function so that the user can see it in real-time.
+    }
+
+    function saveMotion() {
+        var responseObj = createJSONobj();
+        console.log(JSON.stringify(responseObj));
+
+        $.post('motions', responseObj).done(function(msg) {
+            console.log("Data saved: " + JSON.stringify(msg));
+        }).fail(function(msg) {
+            console.log("Error:" + JSON.stringify(msg));
+        });
+
+    }
+
+    function iterMotionNo(val) {
+        var before = $("#motion_number").val();
+        after = parseInt(before) + parseInt(val);
+        $("#motion_number").val(after);
+        return after;
+    }
+
+    function clearFields(fields, newFields) {
+        fields.forEach(function(element, index, array) {
+            $(element).val("");
+        })
+        populateFields(newFields);
+    }
+
+    function populateFields(fields) {
+        if (fields != undefined) {
+            console.log(fields);
+
+            $('.form-control').each(function(i) {
+                $(this).val(fields[$(this).attr("name")])
+            });
+            $("#friendly").val(fields["friendly"]);
+            $("#roll_call").val(fields["roll_call"]);
+            $("#parent").val(fields["parent"]);
+            $("input:radio").each(function (i) {
+              var member = $(this).attr("name");
+//              console.log(member);
+//              console.log(fields[member]);
+              radioButtonSelectedValueSet($(this).attr("name"), fields[$(this).attr("name")]);
+            })
+        }
+    }
+
+    function radioButtonSelectedValueSet(name, SelectdValue) {
+        $('input[name="' + name+ '"][value="' + SelectdValue + '"]').prop('checked', true);
+    }
+
+    $("#savebtn").click(function(evt) {
         evt.preventDefault();
-        createJSONobj();
-      });
+        saveMotion();
+    });
 
-      $(".btn-save").click(function(evt) {
+    $("#childbtn").click(function(evt) {
         evt.preventDefault();
-      });
+        saveMotion();
+        $("#parent").val($("#motion_number").val());
+        total++;
+        iterMotionNo(1);
+        clearFields(["#movant", "#motion_description", "#required_threshold", "#description", "#discussion"])
+    })
 
+    $("#previousbtn").click(function(evt) {
+        evt.preventDefault();
+        saveMotion();
+        $.getJSON('motions', {
+            "d": $("#date").val(),
+            "m": iterMotionNo(-1)
+        }).done(function(res) {
+            clearFields(["#measure_type", "#measure_number", "#short_title", "#movant", "#motion_description", "#required_threshold", "#description", "#discussion", "#passed", "#parent"], res);
+        }).fail(function(res) {
+            console.log("Error:" + JSON.stringify(res));
+        });
+    })
+
+    $("#nextbtn").click(function(evt) {
+        evt.preventDefault();
+        saveMotion();
+        total++;
+        $("#motion_number").val(total);
+        clearFields(["#measure_type", "#measure_number", "#short_title", "#movant", "#motion_description", "#required_threshold", "#description", "#discussion", "#passed", "#parent"]);
+        $('input:radio').prop('checked', function() {
+            return this.getAttribute('checked') == 'checked';
+        });
+        $('input:checkbox').prop('checked', function() {
+            return this.getAttribute('checked') == 'checked';
+        });
+    });
+
+    $(".btn-save").click(function(evt) {
+        evt.preventDefault();
+    });
     </script>
-  </body>
+</body>
+
 </html>
