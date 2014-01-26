@@ -477,13 +477,12 @@
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/moment.min.js"></script>
     <script type="text/javascript">
+
+    //This keeps you on track if you go back and forth through childs, parents, and previous motions
     var total = 1;
 
     jQuery(document).ready(function() {
         $("input[type='date']").datepicker();
-
-        //This keeps you on track if you go back and forth through childs, parents, and previous motions
-
         console.log("ready!");
         $("#date").val(moment().format("YYYY-MM-DD"));
         $("#motion_number").val(total);
@@ -526,7 +525,6 @@
         }).fail(function(msg) {
             console.log("Error:" + JSON.stringify(msg));
         });
-
     }
 
     function iterMotionNo(val) {
@@ -545,8 +543,6 @@
 
     function populateFields(fields) {
         if (fields != undefined) {
-            console.log(fields);
-
             $('.form-control').each(function(i) {
                 $(this).val(fields[$(this).attr("name")])
             });
@@ -555,8 +551,6 @@
             $("#parent").val(fields["parent"]);
             $("input:radio").each(function (i) {
               var member = $(this).attr("name");
-//              console.log(member);
-//              console.log(fields[member]);
               radioButtonSelectedValueSet($(this).attr("name"), fields[$(this).attr("name")]);
             })
         }
@@ -578,6 +572,19 @@
         total++;
         iterMotionNo(1);
         clearFields(["#movant", "#motion_description", "#required_threshold", "#description", "#discussion"])
+    })
+
+    $("#parentbtn").click(function(evt) {
+        evt.preventDefault();
+        saveMotion();
+        $.getJSON('motions', {
+            "d": $("#date").val(),
+            "m": $("#parent").val()
+        }).done(function(res) {
+            clearFields(["#measure_type", "#measure_number", "#short_title", "#movant", "#motion_description", "#required_threshold", "#description", "#discussion", "#passed", "#parent"], res);
+        }).fail(function(res) {
+            console.log("Error:" + JSON.stringify(res));
+        });
     })
 
     $("#previousbtn").click(function(evt) {
