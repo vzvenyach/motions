@@ -50,35 +50,35 @@ app.get('/users', user.list);
 require('./routes/index')(app);
 
 app.get('/json', function (req, res) {
-	res.render("static_form.html");
+  res.render("static_form.html");
 });
 
 app.get('/motions', function (req, res){
-	motion = new Motion();
-	id = req.query["d"] + "-" + req.query["m"];
-	console.log("GET: " + id);
-	Motion.findById(id, {"_id":0}, function (err, doc) {
-		res.send(doc);
-	});
+  motion = new Motion();
+  id = req.query["d"] + "-" + req.query["m"];
+  console.log("GET: " + id);
+  Motion.findById(id, {"_id":0}, function (err, doc) {
+    res.send(doc);
+  });
 })
 
 app.post('/motions', function (req, res) {
-	motion = new Motion(req.body);
-	motion["_id"] = motion["date"] + "-" + motion["motion_number"];
-	console.log("POST: " + motion["_id"]);
-//	var upsertData = req.body.toObject();
-//	console.log(Motion.findById(motion["_id"]))
-//	console.log(upsertData);
-	Motion.update({"_id":motion["_id"]},req.body, {upsert:true, strict:false}, function (err, doc) {
-		if (err) {throw err}
-			else {console.log("record added: " + doc)}
-	})
-	
+  motion = new Motion(req.body);
+  motion["_id"] = motion["date"] + "-" + motion["motion_number"];
+  console.log("POST: " + motion["_id"]);
+//  var upsertData = req.body.toObject();
+//  console.log(Motion.findById(motion["_id"]))
+//  console.log(upsertData);
+  Motion.update({"_id":motion["_id"]},req.body, {upsert:true, strict:false}, function (err, doc) {
+    if (err) {throw err}
+      else {console.log("record added: " + doc)}
+  })
+  
 /*
-	motion.save(function (err) {
-		if (err) {console.log( err )}
-		else {console.log("Record added")};
-	})
+  motion.save(function (err) {
+    if (err) {console.log( err )}
+    else {console.log("Record added")};
+  })
 */
 })
 
@@ -91,22 +91,22 @@ var motions = require('./routes/motions.js');
 
 //This is the heart and soul of the motionsDB CRUD operations
 
-app.get("/motions.json", function	(req, res) {
+app.get("/motions.json", function (req, res) {
     //This is the going to be getting the applicable motions JSON object
     var jsonObject = motions.get(req);
     //res.json(jsonObject);
 });
 
 app.put("/motions.json", function (req, res) {
-	//This is to create a motion record
+  //This is to create a motion record
 });
 
 app.post("/motions.json", function (req, res) {
-	//This is to update a motion record
+  //This is to update a motion record
 });
 
 app.delete("/motions.json", function (req, res) {
-	//This is to delete a motion record... should be rare
+  //This is to delete a motion record... should be rare
 });
 */
 
