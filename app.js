@@ -29,9 +29,6 @@ app.use(express.static(path.join(__dirname, './')));
 app.engine('html', cons.underscore);
 app.set('view engine', 'html');
 
-//create MongoDB client
-//var client = CLIENT!!! 
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -66,49 +63,11 @@ app.post('/motions', function (req, res) {
   motion = new Motion(req.body);
   motion["_id"] = motion["date"] + "-" + motion["motion_number"];
   console.log("POST: " + motion["_id"]);
-//  var upsertData = req.body.toObject();
-//  console.log(Motion.findById(motion["_id"]))
-//  console.log(upsertData);
   Motion.update({"_id":motion["_id"]},req.body, {upsert:true, strict:false}, function (err, doc) {
     if (err) {throw err}
       else {console.log("record added: " + doc)}
   })
   
-/*
-  motion.save(function (err) {
-    if (err) {console.log( err )}
-    else {console.log("Record added")};
-  })
-*/
-})
-
-/*
-
-//Ideally, I'd like to present the 
-
-
-var motions = require('./routes/motions.js');
-
-//This is the heart and soul of the motionsDB CRUD operations
-
-app.get("/motions.json", function (req, res) {
-    //This is the going to be getting the applicable motions JSON object
-    var jsonObject = motions.get(req);
-    //res.json(jsonObject);
-});
-
-app.put("/motions.json", function (req, res) {
-  //This is to create a motion record
-});
-
-app.post("/motions.json", function (req, res) {
-  //This is to update a motion record
-});
-
-app.delete("/motions.json", function (req, res) {
-  //This is to delete a motion record... should be rare
-});
-*/
 
 // Start server
 server.listen(app.get('port'), function() {
