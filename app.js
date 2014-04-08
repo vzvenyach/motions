@@ -50,6 +50,15 @@ app.get('/json', function (req, res) {
   res.render("static_form_alt.html");
 });
 
+app.get('/date',function (req,res) {
+  motion = new Motion();
+  d = req.query["d"];
+  Motion.find({$query:{"date":d}, $orderby:{"motion_number":1}}, function (err, doc) {
+    res.send(doc);
+  });
+
+})
+
 app.get('/motions', function (req, res){
   motion = new Motion();
   id = req.query["d"] + "-" + req.query["m"];
