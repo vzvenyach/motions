@@ -67,6 +67,7 @@ app.post('/motions', function (req, res) {
     if (err) {throw err}
       else {console.log("record added: " + doc)}
   })
+})
   
 
 // Start server
