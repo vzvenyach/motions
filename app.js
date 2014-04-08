@@ -47,7 +47,7 @@ app.get('/users', user.list);
 require('./routes/index')(app);
 
 app.get('/json', function (req, res) {
-  res.render("static_form.html");
+  res.render("static_form_alt.html");
 });
 
 app.get('/motions', function (req, res){
