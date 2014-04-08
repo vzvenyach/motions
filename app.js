@@ -11,7 +11,7 @@ var cons = require('consolidate');
 //Need to link up to MongoDB
 var mongoose = require('mongoose');
 var Motion = require('./motionsdb');
-var db = mongoose.connect('mongodb://vdavez:test@dharma.mongohq.com:10018/motions');
+var db = mongoose.connect(process.env.MONGODBURI);
 
 // all environments
 app.set('port', process.env.PORT || 5000);
@@ -56,7 +56,6 @@ app.get('/date',function (req,res) {
   Motion.find({$query:{"date":d}, $orderby:{"motion_number":1}}, function (err, doc) {
     res.send(doc);
   });
-
 })
 
 app.get('/motions', function (req, res){
@@ -78,7 +77,6 @@ app.post('/motions', function (req, res) {
   })
 })
   
-
 // Start server
 server.listen(app.get('port'), function() {
   console.log('Express/socket server listening on port ' + app.get('port'));
